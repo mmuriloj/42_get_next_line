@@ -6,7 +6,7 @@
 /*   By: mumontei <mumontei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:39:37 by mumontei          #+#    #+#             */
-/*   Updated: 2022/06/28 04:23:44 by mumontei         ###   ########.fr       */
+/*   Updated: 2022/06/28 21:00:36 by mumontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 char	*get_line(char *static_str)
 {
 	int		i;
 	char	*str;
 
-	if (!*static_str)
+	if (!static_str)
 		return (NULL);
 	i = 0;
 	while (static_str[i] && static_str[i] != '\n')
@@ -35,7 +34,6 @@ char	*get_line(char *static_str)
 		str = (char *)malloc((i + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
-	
 	i = 0;
 	while (static_str[i] && static_str[i] != '\n')
 	{
@@ -88,17 +86,13 @@ char	*save_buffer(int fd, char *static_str)
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
-	//buffer[BUFFER_SIZE + 1] = '\0';
-	//n_bytes = read(fd, buffer, BUFFER_SIZE);
-	n_bytes = read(fd, buffer, BUFFER_SIZE);
+	n_bytes = 1;
 	while (n_bytes > 0 && ft_strchr(static_str, '\n') == NULL)
 	{
+		n_bytes = read(fd, buffer, BUFFER_SIZE);
+		
 		if (n_bytes <= 0)
-		{
-			free(buffer);
-			//free(static_str);
-			return (NULL);
-		}
+			break ;
 		if (!static_str)
 		{
 			static_str = (char *)malloc(1 * sizeof(char));
@@ -108,9 +102,6 @@ char	*save_buffer(int fd, char *static_str)
 		temp = static_str;
 		static_str = ft_strjoin(temp, buffer);
 		free(temp);
-		n_bytes = read(fd, buffer, BUFFER_SIZE);
-		//if (ft_strchr(static_str, '\n'))
-		//	break ;
 		
 	}
 	free(buffer);
@@ -122,19 +113,19 @@ char	*get_next_line(int fd)
 	static char	*static_str;
 	char		*line;
 
-	line = NULL;
-	
+	line = 0;
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
 	static_str = save_buffer(fd, static_str);
 	line = get_line(static_str);
-	if (!static_str || static_str[0] == '\0' || !line)
+	static_str = get_endside(static_str);
+	if ((!static_str || static_str[0] == '\0') && !*line)
 	{
 		free (static_str);
 		free(line);
+		line = NULL;
 		return (NULL);
 	}
-	static_str = get_endside(static_str);
 	return (line);
 }
 
