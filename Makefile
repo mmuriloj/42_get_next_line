@@ -24,4 +24,7 @@ fclean: 	clean
 
 re: 	fclean all
 
+valg:
+	clear && valgrind --leak-check=full --show-leak-kinds=all ./get_next_line
+
 .PHONY: re fclean clean all
