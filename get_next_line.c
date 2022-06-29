@@ -6,7 +6,7 @@
 /*   By: mumontei <mumontei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 01:39:37 by mumontei          #+#    #+#             */
-/*   Updated: 2022/06/29 02:45:51 by mumontei         ###   ########.fr       */
+/*   Updated: 2022/06/29 03:56:25 by mumontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ char	*get_line(char *static_str)
 		i++;
 	}
 	if (static_str[i] == '\n')
-	{
-		str[i] = '\n';
-		i++;
-	}
+		str[i++] = '\n';
 	str[i] = '\0';
 	return (str);
 }
@@ -54,12 +51,11 @@ char	*get_endside(char *static_str)
 	int		i;
 	int		j;
 	char	*end;
-	
+
 	i = 0;
 	j = 0;
 	if (!static_str)
 	{
-		//free(static_str);
 		static_str = NULL;
 		return (NULL);
 	}
@@ -90,7 +86,6 @@ char	*save_buffer(int fd, char *static_str)
 	while (n_bytes > 0 && ft_strchr(static_str, '\n') == NULL)
 	{
 		n_bytes = read(fd, buffer, BUFFER_SIZE);
-		
 		if (n_bytes < 0)
 		{
 			free(buffer);
@@ -105,7 +100,6 @@ char	*save_buffer(int fd, char *static_str)
 		temp = static_str;
 		static_str = ft_strjoin(temp, buffer);
 		free(temp);
-		
 	}
 	free(buffer);
 	return (static_str);
@@ -126,10 +120,8 @@ char	*get_next_line(int fd)
 	static_str = get_endside(static_str);
 	if ((!static_str || static_str[0] == '\0') && !*line)
 	{
-		free (static_str);
-		free(line);
-		static_str = NULL;
-		line = NULL;
+		forget(&static_str);
+		forget(&line);
 		return (NULL);
 	}
 	return (line);

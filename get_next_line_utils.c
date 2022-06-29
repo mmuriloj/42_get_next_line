@@ -6,7 +6,7 @@
 /*   By: mumontei <mumontei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 19:55:33 by mumontei          #+#    #+#             */
-/*   Updated: 2022/06/28 00:52:39 by mumontei         ###   ########.fr       */
+/*   Updated: 2022/06/29 03:56:36 by mumontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	res[i + j] = '\0';
 	return (res);
+}
+
+void	forget(char **arr)
+{
+	free(*arr);
+	*arr = NULL;
 }
