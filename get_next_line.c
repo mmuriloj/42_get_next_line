@@ -5,18 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumontei <mumontei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/23 01:39:37 by mumontei          #+#    #+#             */
-/*   Updated: 2022/06/29 03:56:25 by mumontei         ###   ########.fr       */
+/*   Created: 2022/06/29 19:45:17 by mumontei          #+#    #+#             */
+/*   Updated: 2022/06/29 21:11:33 by mumontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 char	*get_line(char *static_str)
 {
@@ -39,7 +33,7 @@ char	*get_line(char *static_str)
 	{
 		str[i] = static_str[i];
 		i++;
-	}
+	}	
 	if (static_str[i] == '\n')
 		str[i++] = '\n';
 	str[i] = '\0';
@@ -91,11 +85,7 @@ char	*save_buffer(int fd, char *static_str)
 			free(buffer);
 			return (NULL);
 		}	
-		if (!static_str)
-		{
-			static_str = (char *)malloc(1 * sizeof(char));
-			static_str[0] = '\0';
-		}
+		nullify(&static_str);
 		buffer[n_bytes] = '\0';
 		temp = static_str;
 		static_str = ft_strjoin(temp, buffer);

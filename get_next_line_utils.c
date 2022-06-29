@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mumontei <mumontei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/11 19:55:33 by mumontei          #+#    #+#             */
-/*   Updated: 2022/06/29 03:56:36 by mumontei         ###   ########.fr       */
+/*   Created: 2022/06/29 19:44:32 by mumontei          #+#    #+#             */
+/*   Updated: 2022/06/29 21:09:59 by mumontei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,13 @@ void	forget(char **arr)
 {
 	free(*arr);
 	*arr = NULL;
+}
+
+void	nullify(char **str)
+{
+	if (!*str)
+	{
+		*str = (char *)malloc(1 * sizeof(char));
+		*str[0] = '\0';
+	}
 }
