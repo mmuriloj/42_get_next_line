@@ -1,6 +1,6 @@
 NAME = get_next_line
-CC = clang -g
-CFLAGS = -Wall -Wextra -Werror -g3
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 HEADER = get_next_line.h
 SRCS =	get_next_line.c main.c \
 		get_next_line_utils.c
